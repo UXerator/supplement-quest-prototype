@@ -1,0 +1,13 @@
+{
+  "id": "/",
+  "name": "SupplementQuest",
+  "short_name": "SupplementQuest",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0F4C81",
+  "icons": [
+    { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

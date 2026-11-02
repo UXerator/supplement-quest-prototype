@@ -1,0 +1,6 @@
+chromadb>=1.5.9,<2
+fastapi>=0.115,<1
+langchain-text-splitters>=0.3,<2
+pydantic>=2.7,<3
+streamlit>=1.36,<2
+uvicorn[standard]>=0.30,<1

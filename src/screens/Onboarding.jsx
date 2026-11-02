@@ -1,102 +1,77 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, BookOpen, Share2, ClipboardList, AlertTriangle } from 'lucide-react';
+import { BookOpen, Share2, ClipboardList, AlertTriangle } from 'lucide-react';
+import { useQuest } from '../quest-context';
+import { Home } from './CoreApp';
+import { EvidenceBadge } from '../QuestUI';
 
 export const Splash = () => {
-  const navigate = useNavigate();
-  return (
-    <div className="content-area flex flex-col justify-center items-center text-center">
-      <div className="mb-6">
-        <ShieldCheck size={80} color="var(--primary)" />
-      </div>
-      <h1 className="mb-2">SupplementQuest™</h1>
-      <p className="text-muted mb-6">Facts First. Evidence-based supplement decisions.</p>
-      
-      <div className="flex flex-col gap-4 w-full max-w-xs mt-4">
-        <button className="btn btn-primary btn-block" onClick={() => navigate('/input')}>
-          Check a supplement claim
-        </button>
-        <button className="btn btn-outline btn-block" onClick={() => navigate('/onboarding/1')}>
-          See how it works
-        </button>
-        <button className="btn btn-secondary btn-block mt-4" onClick={() => navigate('/diagrams')}>
-          Reviewer Mode (All Screens)
-        </button>
-      </div>
-    </div>
-  );
+  return <Home />;
 };
 
 export const Onboarding1 = () => {
   const navigate = useNavigate();
+  const { t } = useQuest();
   return (
-    <div className="content-area flex flex-col justify-center">
-      <div className="text-center mb-6">
-        <BookOpen size={64} color="var(--primary)" className="mx-auto mb-4" />
-        <h2>Check Claims Against NIH Evidence</h2>
-        <p>We help you check supplement claims instantly against NIH Office of Dietary Supplements (ODS) evidence.</p>
-      </div>
-      
+    <div className="content-area">
+      <BookOpen size={48} color="var(--primary)" />
+      <h1>{t('Check Claims Against ODS Sources', 'Consultar afirmaciones con fuentes ODS')}</h1>
+      <p>{t('This prototype retrieves local NIH Office of Dietary Supplements excerpts. It does not generate new health claims.',
+        'Este prototipo recupera extractos locales de NIH ODS. No genera nuevas afirmaciones de salud.')}</p>
       <div className="card">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="badge badge-supported">Supported</span>
+        <h2>{t('Evidence labels', 'Etiquetas de evidencia')}</h2>
+        <div className="topic-filters">
+          {['Supported', 'Limited Evidence', 'Not Addressed'].map(level => <EvidenceBadge key={level} level={level} />)}
         </div>
-        <p className="text-sm">Strong evidence supports this use.</p>
+        <p>{t('These are app labels, not official NIH ratings. The current source excerpts await qualified claim review.',
+          'Son etiquetas de la app, no calificaciones oficiales de NIH. Los extractos actuales esperan revisión profesional.')}</p>
       </div>
-      <div className="card">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="badge badge-limited">Limited Evidence</span>
-        </div>
-        <p className="text-sm">Some research exists, but it's not conclusive.</p>
-      </div>
-      <div className="card">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="badge badge-none">Not Addressed</span>
-        </div>
-        <p className="text-sm">No significant evidence in ODS databases.</p>
-      </div>
-      
-      <button className="btn btn-primary btn-block mt-4" onClick={() => navigate('/onboarding/2')}>Next</button>
+      <button className="btn btn-primary btn-block" onClick={() => navigate('/onboarding/2')}>
+        {t('Next', 'Siguiente')}
+      </button>
     </div>
   );
 };
 
 export const Onboarding2 = () => {
   const navigate = useNavigate();
+  const { t } = useQuest();
   return (
-    <div className="content-area flex flex-col justify-center text-center">
-      <ClipboardList size={64} color="var(--primary)" className="mx-auto mb-4" />
-      <h2>The Decision Card</h2>
-      <p className="mb-6">Every search generates a personal Decision Card. It contains your claim, the evidence level, safety notes, and practical guidance.</p>
-      
-      <div className="card text-left mb-6 bg-blue-50 border-blue-200">
-        <h3 className="mb-2">Your Notebook</h3>
-        <p className="text-sm">Save cards to revisit later. Your primary value and learning happen right here in the app.</p>
+    <div className="content-area">
+      <ClipboardList size={48} color="var(--primary)" />
+      <h1>{t('The Decision Card', 'La tarjeta de decisión')}</h1>
+      <p>{t('Read the source, uncertainty, and practical guidance inside the app. Then reflect on your next step.',
+        'Lee la fuente, la incertidumbre y la orientación en la app. Después reflexiona sobre tu próximo paso.')}</p>
+      <div className="card">
+        <h2>{t('Your Notebook', 'Tu cuaderno')}</h2>
+        <p>{t('Save and reopen cards during this session. Reloading or closing the app clears them.',
+          'Guarda y reabre tarjetas durante esta sesión. Recargar o cerrar la app las borra.')}</p>
       </div>
-      
-      <div className="flex items-center gap-2 justify-center text-sm text-muted">
-        <Share2 size={16} /> Optional sharing is secondary
-      </div>
-      
-      <button className="btn btn-primary btn-block mt-6" onClick={() => navigate('/onboarding/3')}>Next</button>
+      <p><Share2 size={16} /> {t('Sharing is optional and comes after your Decision Card.',
+        'Compartir es opcional y viene después de tu tarjeta de decisión.')}</p>
+      <button className="btn btn-primary btn-block" onClick={() => navigate('/onboarding/3')}>
+        {t('Next', 'Siguiente')}
+      </button>
     </div>
   );
 };
 
 export const Onboarding3 = () => {
   const navigate = useNavigate();
+  const { t } = useQuest();
   return (
-    <div className="content-area flex flex-col justify-center text-center">
-      <AlertTriangle size={64} color="var(--warning)" className="mx-auto mb-4" />
-      <h2>Education, Not Medical Advice</h2>
-      <p className="mb-4">SupplementQuest™ is an educational tool. We provide evidence summaries, not medical advice or diagnoses.</p>
-      
-      <div className="card text-left mb-6 border-l-4" style={{borderLeftColor: 'var(--warning)'}}>
-        <h3 className="mb-2">Safety Escalation</h3>
-        <p className="text-sm">For questions involving medications, pregnancy, or serious conditions, we will direct you to consult a clinical professional.</p>
+    <div className="content-area">
+      <AlertTriangle size={48} color="var(--warning)" />
+      <h1>{t('Education, Not Medical Advice', 'Educación, no consejo médico')}</h1>
+      <p>{t('Do not enter names or identifying health details. No account or purchase is required.',
+        'No ingreses nombres ni datos de salud que te identifiquen. No necesitas una cuenta ni comprar.')}</p>
+      <div className="card">
+        <h2>{t('Safety Escalation', 'Derivación por seguridad')}</h2>
+        <p>{t('Questions involving pregnancy, medications, children, or serious conditions are referred to a healthcare professional.',
+          'Las preguntas sobre embarazo, medicamentos, niños o enfermedades graves se remiten a un profesional de salud.')}</p>
       </div>
-      
-      <button className="btn btn-primary btn-block" onClick={() => navigate('/home')}>Get Started</button>
+      <button className="btn btn-primary btn-block" onClick={() => navigate('/home')}>
+        {t('Get Started', 'Comenzar')}
+      </button>
     </div>
   );
 };
